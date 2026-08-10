@@ -1,20 +1,13 @@
-node{
-    def app
+node {
     stage('clone') {
-        checkout scm
+        git url: 'https://github.com/vivien206/jenkins-build-docker.git', branch: 'master'
     }
 
-    satge('Build image') {
-        app = docker.build("vivien/nginx")
+    stage('build') {
+        sh 'docker build -t jenkins-build-docker .'
     }
 
-    stage('Run image')  {
-        docker.image('vivien/nginx').withRun('-p 80:80')  { c ->
-        
-        sh 'docker ps'
-
-        sh 'curl localhost'
-
-        }
+    stage('run') {
+        sh 'docker run --rm jenkins-build-docker'
     }
 }
