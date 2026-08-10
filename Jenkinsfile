@@ -8,6 +8,6 @@ node {
     }
 
     stage('run') {
-        sh 'docker run --rm jenkins-build-docker'
+        sh 'docker run --rm -p 8080:80 jenkins-build-docker'
     }
 }
